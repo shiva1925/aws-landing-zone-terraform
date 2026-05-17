@@ -3,6 +3,7 @@ kind: Deployment
 
 metadata:
   name: nginx-deployment
+  namespace: dev
 
 spec:
   replicas: 3
@@ -23,3 +24,18 @@ spec:
 
         ports:
         - containerPort: 80
+        
+        env:
+        - name: APP_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: nginx-config
+              key: APP_ENV
+
+        - name: APP_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: nginx-config
+              key: APP_NAME
+
+        
